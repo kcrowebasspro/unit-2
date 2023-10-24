@@ -71,4 +71,5 @@ function getData(){
 };
 
 
+
 document.addEventListener('DOMContentLoaded',createMap)
