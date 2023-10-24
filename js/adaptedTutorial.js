@@ -1,36 +1,28 @@
-// JS by Kevin Crowe, 2023
+// Author: Kevin Crowe
+/* This is the geoJSON tutorial from leaflet */
 
 
-
-//Set the mapbox key
-L.mapbox.accessToken = 'pk.eyJ1Ijoia2Nyb3dlYmFzc3BybyIsImEiOiJjbG8wZnJwMXgxNW1lMnNwZGF4M295bzhiIn0.HH0mKHddBIow2AdY707JMA';
-
-
+/* Map of GeoJSON data from MegaCities.geojson */
 //declare map var in global scope
 var map;
-
 //function to instantiate the Leaflet map
 function createMap(){
     //create the map
-    map = L.map('map', {
-        center: [47, -100],
-        zoom: 3
+    map3 = L.map('map3', {
+        center: [20, 0],
+        zoom: 2
     });
 
-    // Tiles are 512x512 pixels and are offset by 1 zoom level
-    L.tileLayer(
-        'https://api.mapbox.com/styles/v1/mapbox/light-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
-            tileSize: 512,
-            zoomOffset: -1,
-            attribution: '© <a href="https://www.mapbox.com/contribute/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+    //add OSM base tilelayer
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map3);
 
     //call getData function
     getData();
 };
 
-
-//create the marker popups for each point in the geojson layer
+//added at Example 2.3 line 20...function to attach popups to each mapped feature
 function onEachFeature(feature, layer) {
     //no property named popupContent; instead, create html string with all properties
     var popupContent = "";
@@ -46,14 +38,14 @@ function onEachFeature(feature, layer) {
 //function to retrieve the data and place it on the map
 function getData(){
     //load the data
-    fetch("data/camp_fires_2022.geojson")
+    fetch("data/MegaCities.geojson")
         .then(function(response){
             return response.json();
         })
         .then(function(json){
             //create the marker options
             var geojsonMarkerOptions = {
-                radius: 3,
+                radius: 8,
                 fillColor: "#ff7800",
                 color: "#000",
                 weight: 1,
@@ -66,9 +58,10 @@ function getData(){
                 pointToLayer: function (feature, latlng){
                     return L.circleMarker(latlng, geojsonMarkerOptions);
                 }
-            }).addTo(map);
+            }).addTo(map3);
         })
 };
 
 
 document.addEventListener('DOMContentLoaded',createMap)
+

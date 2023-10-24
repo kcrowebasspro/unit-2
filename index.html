@@ -2,12 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
             <title></title>
 
         <!--put your external stylesheet links here-->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="lib/leaflet/leaflet.css">
+        <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
         <!--[if IE<9]>
             <link rel="stylesheet" href="css/style.ie.css">
         <![endif]-->
@@ -18,21 +19,15 @@
     </head>
 
     <body>
+        <h1>Large Fires in the U.S.</h1>
+        <p>This is a set of fires logged by the U.S. Forest Service from 2022 that were larger than 0.1 acres and were started by campfires.</p>
         <!--put your initial page content here-->
-        <div id="map" style="width: 500px; height: 500px;">
-            
-        </div>
-        <div id="map2" style="width: 500px; height: 500px;">
-            
-        </div>
+        <div id="map" style="width: 750px; height: 500px;">
 
-        <!--you can also use this space for internal scripts;
-        place these within <script> tags-->
-
+        </div>
         <!--put your external script links here-->
         <script type="text/javascript" src="lib/leaflet/leaflet-src.js"></script>
-        <script type="text/javascript" src="js/quickstartTutorial.js"></script>
-        <script type="text/javascript" src="js/geojsonTutorial.js"></script>
-        <!-- <script type="text/javascript" src="js/main.js"></script> -->
+        <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
