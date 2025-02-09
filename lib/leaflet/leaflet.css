@@ -1,5 +1,8 @@
 /* required styles */
 
+/* define a map height */
+#map { height: 360px; }
+
 .leaflet-pane,
 .leaflet-tile,
 .leaflet-marker-icon,
