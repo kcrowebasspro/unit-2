@@ -8,8 +8,8 @@ var map;
 function createMap(){
     //create the map
     map = L.map('map', {
-        center: [41, -100],
-        zoom: 4
+        center: [26.55, -81.8],
+        zoom: 10
     });
 
 
@@ -50,7 +50,7 @@ function getData(){
             //create marker options
             var geojsonMarkerOptions = {
                 radius: 8,
-                fillColor: "#ff7800",
+                fillColor: "#4682B4",
                 color: "#000",
                 weight: 1,
                 opacity: 1,
@@ -67,4 +67,4 @@ function getData(){
         
 };
 
-document.addEventListener('DOMContentLoaded',createMap)// Add all scripts to the JS folder
+document.addEventListener('DOMContentLoaded',createMap)
