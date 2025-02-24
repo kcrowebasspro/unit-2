@@ -82,13 +82,33 @@ function calcPropRadius(attValue) {
     return radius;
 };
 
+/*
+// Function that creates the popup content for each feature
+function createPopupContent(properties, attribute){
+    //add city to popup content string
+    var popupContent = "<p><b>ZIP Code:</b> " + properties.zipCode + "</p>";
+
+    //add formatted attribute to panel content string
+    var month = attribute.split("month_")[1];
+    popupContent += "<p><b>Rent in month " + month + ":</b> $" + properties[attribute] + "</p>";
+
+    return popupContent;
+};
+*/
+//Example 1.2 line 1...PopupContent constructor function
+function PopupContent(properties, attribute){
+    this.properties = properties;
+    this.attribute = attribute;
+    this.month = attribute.split("month_")[1];
+    this.rent = this.properties[attribute];
+    this.formatted = "<p><b>ZIP Code:</b> " + this.properties.zipCode + "</p><p><b>Rent in month " + this.month + ":</b> $" + this.rent + "</p>";
+};
+
 // a separate function for point to layer
 //function to convert markers to circle markers
 function pointToLayer(feature, latlng, attributes){
     //Determine which attribute to visualize with proportional symbols
     var attribute = attributes[0];
-    //check
-    console.log(attribute);
 
     //create marker options
     var options = {
@@ -109,13 +129,11 @@ function pointToLayer(feature, latlng, attributes){
     var layer = L.circleMarker(latlng, options);
 
     //build popup content string
-    var popupContent = "<p><b>ZIP code:</b> " + feature.properties.zipCode + "</p><p><b>" + attribute + ":</b> " + feature.properties[attribute] + "</p>";
-
-    // log the popup content
-    //console.log(popupContent);
-
-    //bind the popup to the circle marker
-    layer.bindPopup(popupContent);
+    var popupContent = new PopupContent(feature.properties, attribute);
+    //bind the popup to the circle marker    
+    layer.bindPopup(popupContent.formatted, {
+        offset: new L.Point(0,-options.radius)   
+    });
 
     //return the circle marker to the L.geoJson pointToLayer option
     return layer;
@@ -145,16 +163,12 @@ function updatePropSymbols(attribute){
             var radius = calcPropRadius(props[attribute]);
             layer.setRadius(radius);
 
-            //add ZIP code to popup content string
-            var popupContent = "<p><b>ZIP Code:</b> " + props.zipCode + "</p>";
-
             //add formatted attribute to panel content string
-            var month = attribute.split("month_")[1];
-            popupContent += "<p><b>Rent in month " + month + ":</b> $" + props[attribute] + "</p>";
+            var popupContent = new PopupContent(props, attribute);    
 
-            //update popup content            
-            popup = layer.getPopup();            
-            popup.setContent(popupContent).update();
+            //update popup with new content    
+            popup = layer.getPopup();    
+            popup.setContent(popupContent.formatted).update();
         };
         };
     });
